@@ -1,11 +1,10 @@
 import Header from "../components/Header";
 import Meta from "../components/Meta";
 
-const About = () => {
+const MyProfile = () => {
   // page content
-  const pageTitle = "About";
-  const pageDescription =
-    "This is a demo twitter clone made by Neel Doshi! Hope you like it!";
+  const pageTitle = "My Profile";
+  const pageDescription = "This is where user info will be!";
 
   return (
     <div>
@@ -15,4 +14,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default MyProfile;
