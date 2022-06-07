@@ -17,7 +17,7 @@ const Home = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("/api/v1/natter/user")
+    fetch("/api/v1/natter/")
       .then((res) => res.json())
       .then(
         (result) => {
@@ -38,8 +38,10 @@ const Home = () => {
     return (
       <>
         {" "}
-        <div>Login to coninue</div>
-        <Button href="http://localhost:8080/login">Login</Button>
+        <div>Login to continue</div>
+        <Button href="http://localhost:8080/oauth2/authorization/google">
+          Login
+        </Button>
       </>
     );
   } else if (!isLoaded) {
