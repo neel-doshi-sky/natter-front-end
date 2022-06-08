@@ -4,6 +4,7 @@ import NatterList from "../components/natter/NatterList";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import NewNatter from "../components/natter/NewNatter";
+import { Jumbotron, Container } from "react-bootstrap";
 
 const Home = () => {
   // page content
@@ -37,11 +38,18 @@ const Home = () => {
   if (error) {
     return (
       <>
-        {" "}
-        <div>Login to continue</div>
-        <Button href="http://localhost:8080/oauth2/authorization/google">
-          Login
-        </Button>
+        <Jumbotron fluid>
+          <Container>
+            <h1>Welcome to Natr!</h1>
+            <p>
+              Login using the link below to see what people are nattering about!
+            </p>
+            <br></br>
+            <Button href="http://localhost:8080/oauth2/authorization/google">
+              Login
+            </Button>
+          </Container>
+        </Jumbotron>
       </>
     );
   } else if (!isLoaded) {
