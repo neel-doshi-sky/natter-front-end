@@ -18,7 +18,17 @@ const Natter = (props) => {
         >
           <Card.Title>{props.value.body}</Card.Title>
         </Link>
-        <Card.Text>{props.value.authorName}</Card.Text>
+        <Card.Text>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={{
+              pathname: `/userProfile/${props.value.id.authorId}`,
+            }}
+            state={{ id: props.value.id.authorId }}
+          >
+            {props.value.authorName}
+          </Link>
+        </Card.Text>
         <Card.Footer>Comments: {props.value.commentCount}</Card.Footer>
         <Card.Footer>Date: {props.value.dateCreated}</Card.Footer>
       </Card.Body>

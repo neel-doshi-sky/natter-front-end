@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import NewNatter from "../components/natter/NewNatter";
 import { Jumbotron, Container } from "react-bootstrap";
 
-const Home = () => {
+const Home = (props) => {
   // page content
   const pageTitle = "NATR";
   const pageDescription = "what's the latest natter?";
@@ -17,13 +17,19 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
-    fetch("/api/v1/natter/")
+    console.log(props);
+
+    fetch("/api/v1/user/user")
       .then((res) => res.json())
       .then(
         (result) => {
+          console.log(result);
+          console.log(props);
           setIsLoaded(true);
-          setItems(result);
+          setUser(result);
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -31,6 +37,7 @@ const Home = () => {
         (error) => {
           setIsLoaded(true);
           setError(error);
+          console.log(error);
         }
       );
   }, []);
@@ -55,10 +62,8 @@ const Home = () => {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    const Natter = (id, body, author) => {
-      return { id: id, body: body, author: author };
-    };
-
+    console.log(props);
+    props.setIsLoggedIn(true);
     const natterArray = [];
     if (items.list != undefined) {
       items.list.forEach((nat) => natterArray.push(nat));
@@ -71,7 +76,10 @@ const Home = () => {
           <Header head={pageTitle} description={pageDescription} />
         </div>
         <NewNatter />
-        <NatterList natters={natterArray}></NatterList>
+        <NatterList
+          isLoggedIn={props.isLoggedIn}
+          setIsLoggedIn={props.setIsLoggedIn}
+        ></NatterList>
       </>
     );
   }

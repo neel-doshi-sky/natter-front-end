@@ -1,7 +1,34 @@
 import { Link } from "react-router-dom";
 import { Nav, Container } from "react-bootstrap";
+import { useState, useEffect } from "react";
 
-const Menu = () => {
+const Menu = (props) => {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    console.log(props);
+
+    fetch("/api/v1/user/user")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          console.log(props);
+          setIsLoaded(true);
+          setUser(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+          console.log(error);
+        }
+      );
+  }, []);
   return (
     <Container>
       <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -12,18 +39,27 @@ const Menu = () => {
           NATR
         </Link>
         <Nav>
-          <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li>
-              <Link to="/about" className="nav-link px-2 link-secondary">
-                About
-              </Link>
-            </li>
-          </ul>
-          <li>
-            <Link to="/myProfile" className="nav-link px-2 link-secondary">
-              My Profile
-            </Link>
-          </li>
+          {props.isLoggedIn && user && user.responseObject && (
+            <>
+              <li>
+                <Link to="/myProfile" className="nav-link px-2 link-secondary">
+                  {user.responseObject.firstName +
+                    " " +
+                    user.responseObject.lastName}
+                </Link>
+              </li>
+              <li>
+                <Link to="/myProfile" className="nav-link px-2 link-secondary">
+                  {user.responseObject.followers}
+                </Link>
+              </li>
+              <li>
+                <Link to="/myProfile" className="nav-link px-2 link-secondary">
+                  {user.responseObject.following}
+                </Link>
+              </li>
+            </>
+          )}
         </Nav>
       </header>
     </Container>

@@ -19,7 +19,6 @@ const Meta = ({ title }) => {
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <h1>Hello World</h1>
     </HelmetProvider>
   );
 };

@@ -1,12 +1,14 @@
 // components
 import Menu from "../components/Menu";
 import Footer from "../components/Footer";
+import { useState } from "react";
 
-const Layout = ({ children }) => {
+const Layout = (props) => {
   return (
     <>
-      <Menu />
-      <main>{children}</main>
+      {console.log(props)}
+      <Menu isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn} />
+      <main>{props.children}</main>
       <Footer />
     </>
   );
