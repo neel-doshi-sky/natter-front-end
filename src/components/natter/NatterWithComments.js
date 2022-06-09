@@ -54,7 +54,7 @@ const NatterWithComments = (props) => {
         <ul>
           {props.value.comments && props.value.comments.length ? (
             props.value.comments.map((comment) => (
-              <Comment key={comment.id.id} value={comment} />
+              <Comment key={comment.id} value={comment} />
             ))
           ) : (
             <p>No Comments</p>
