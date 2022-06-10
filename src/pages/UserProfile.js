@@ -51,8 +51,8 @@ const UserProfile = (props) => {
 
     return (
       <>
-        <UserDetails />
-        <NatterList natters={natterArray}></NatterList>
+        <UserDetails id={id} />
+        {id && <NatterList userId={id} getForFollowing={false}></NatterList>}
       </>
     );
   }

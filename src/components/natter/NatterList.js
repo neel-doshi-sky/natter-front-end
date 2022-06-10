@@ -8,7 +8,12 @@ const NatterList = (props) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("/api/v1/natter/")
+    console.log(props);
+    fetch(
+      !props.getForFollowing
+        ? "/api/v1/natter/user/" + props.userId
+        : "/api/v1/natter/"
+    )
       .then((res) => res.json())
       .then(
         (result) => {

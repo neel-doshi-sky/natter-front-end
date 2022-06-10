@@ -4,14 +4,14 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const UserDetails = () => {
+const UserDetails = (props) => {
   const [user, setUser] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("/api/v1/user/user")
+    fetch(props.id ? "/api/v1/user/" + props.id : "/api/v1/user/")
       .then((res) => res.json())
       .then(
         (result) => {
@@ -54,13 +54,36 @@ const UserDetails = () => {
               <Button variant="primary">{user.responseObject.following}</Button>
               <br></br>
               <br></br>
-              {!user.responseObject.isLoggedInUser &&
-                !user.responseObject.isFollowing && (
-                  <Button variant="success">+ Follow</Button>
+              {!user.responseObject.loggedInUser &&
+                !user.responseObject.userIsFollowing && (
+                  <Button
+                    onClick={() => {
+                      fetch("/api/v1/user/follow/" + user.responseObject.id, {
+                        method: "POST",
+                      }).then(
+                        () => (window.location.href = window.location.href)
+                      );
+                    }}
+                    variant="success"
+                  >
+                    + Follow
+                  </Button>
                 )}
-              {!user.responseObject.isLoggedInUser &&
-                user.responseObject.isFollowing && (
-                  <Button variant="danget">- Unfollow</Button>
+              {!user.responseObject.loggedInUser &&
+                user.responseObject.userIsFollowing && (
+                  <Button
+                    onClick={() => {
+                      fetch("/api/v1/user/unfollow/" + user.responseObject.id, {
+                        method: "POST",
+                      }).then(
+                        () => (window.location.href = window.location.href)
+                      );
+                    }}
+                    variant="danger"
+                  >
+                    {" "}
+                    Unfollow
+                  </Button>
                 )}
             </Card.Body>
             <Card.Footer className="text-muted"></Card.Footer>

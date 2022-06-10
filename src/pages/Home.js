@@ -10,26 +10,24 @@ const Home = (props) => {
   // page content
   const pageTitle = "NATR";
   const pageDescription = "what's the latest natter?";
-  const natters = [];
 
-  const isLoggedIn = false;
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
-
+  const [userId, setuserId] = useState(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     console.log(props);
 
-    fetch("/api/v1/user/user")
+    fetch("/api/v1/user/")
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result);
-          console.log(props);
           setIsLoaded(true);
           setUser(result);
+          if (result.responseObject) {
+            setuserId(result.responseObject.id);
+          }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -62,12 +60,8 @@ const Home = (props) => {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    console.log(props);
     props.setIsLoggedIn(true);
-    const natterArray = [];
-    if (items.list != undefined) {
-      items.list.forEach((nat) => natterArray.push(nat));
-    }
+    console.log(userId);
 
     return (
       <>
@@ -76,10 +70,14 @@ const Home = (props) => {
           <Header head={pageTitle} description={pageDescription} />
         </div>
         <NewNatter />
-        <NatterList
-          isLoggedIn={props.isLoggedIn}
-          setIsLoggedIn={props.setIsLoggedIn}
-        ></NatterList>
+        {userId && (
+          <NatterList
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
+            userId={userId}
+            getForFollowing={true}
+          ></NatterList>
+        )}
       </>
     );
   }

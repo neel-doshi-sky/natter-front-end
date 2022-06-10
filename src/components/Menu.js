@@ -8,9 +8,10 @@ const Menu = (props) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    console.log("new");
     console.log(props);
 
-    fetch("/api/v1/user/user")
+    fetch("/api/v1/user/")
       .then((res) => res.json())
       .then(
         (result) => {
