@@ -7,10 +7,8 @@ const EditNatter = (props) => {
   const handleChange = (event) => {
     event.preventDefault();
     setValue(event.target.value);
-    console.log("changed");
   };
   const submitForm = (value) => {
-    console.log("form submit " + value);
     const requestOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button } from "bootstrap";
 import NatterWithComments from "../../components/natter/NatterWithComments";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import Login from "../../components/Login";
 
 const NatterDetails = () => {
   // page content
@@ -10,7 +12,6 @@ const NatterDetails = () => {
   const location = useLocation();
   const id = location.state.id;
   console.log(location);
-  console.log(id);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -36,9 +37,7 @@ const NatterDetails = () => {
   if (error) {
     return (
       <>
-        {" "}
-        <div>Login to coninue</div>
-        <Button href="http://localhost:8080/login">Login</Button>
+        <Login></Login>
       </>
     );
   } else if (!isLoaded) {
@@ -48,20 +47,19 @@ const NatterDetails = () => {
     if (items.responseObject !== undefined) {
       natter = items.responseObject;
     }
-    console.log(natter);
 
     return (
       <>
-        <NatterWithComments value={natter}></NatterWithComments>
+        {location.state.userId && natter && natter.userLikes && (
+          <NatterWithComments
+            value={natter}
+            userId={location.state.userId}
+            isLikedByUser={natter.userLikes.includes(location.state.userId)}
+          ></NatterWithComments>
+        )}
       </>
     );
   }
-
-  return (
-    <div>
-      <Header head={pageTitle} description={location.state.id} />
-    </div>
-  );
 };
 
 export default NatterDetails;

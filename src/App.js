@@ -12,7 +12,6 @@ import MyProfile from "./pages/MyProfile";
 import NatterDetails from "./pages/Natter/NatterDetails";
 import { useState, useEffect } from "react";
 import UserProfile from "./pages/UserProfile";
-import jsCookies from "js-cookies";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

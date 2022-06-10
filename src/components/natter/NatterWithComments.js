@@ -5,63 +5,118 @@ import NewComment from "./NewComment";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
 import EditNatter from "./EditNatter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp, faComment } from "@fortawesome/free-solid-svg-icons";
 
 const NatterWithComments = (props) => {
   // your link creation
-  console.log(props);
   const [showEditForm, setShowEditForm] = useState(false);
   var isOwnedByAuth = props.value.ownedByAuth;
 
+  const [isLiked, setIsLiked] = useState(
+    props.isLikedByUser ? props.isLikedByUser : false
+  );
+
+  const handleClick = () => {
+    // 👇️ toggle
+    console.log(props);
+    setIsLiked((current) => !current);
+    props.value.likes = !isLiked
+      ? props.value.likes + 1
+      : props.value.likes - 1;
+    if (!isLiked) {
+      props.value.userLikes.splice(
+        props.value.userLikes.indexOf(props.userId),
+        1
+      );
+    } else {
+      props.value.userLikes.push(props.userId);
+    }
+  };
+
   return (
-    <Container>
-      <Card>
-        <Card.Body>
-          {!showEditForm && <Card.Title>{props.value.body}</Card.Title>}
-          {showEditForm && (
-            <EditNatter id={props.value.id} original={props.value.body} />
-          )}
-          <Card.Text>{props.value.authorName}</Card.Text>
-          <Card.Footer>Date: {props.value.dateCreated}</Card.Footer>
-        </Card.Body>
-        <Card.Body>
-          {isOwnedByAuth && (
+    <>
+      {props.userId && props.value && (
+        <Container>
+          <Card>
+            <Card.Body>
+              {!showEditForm && <Card.Title>{props.value.body}</Card.Title>}
+              {showEditForm && (
+                <EditNatter id={props.value.id} original={props.value.body} />
+              )}
+              <Card.Text>By {props.value.authorName}</Card.Text>
+              <Card.Footer>Date: {props.value.dateCreated}</Card.Footer>
+            </Card.Body>
+            <Card.Body>
+              {isOwnedByAuth && (
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    fetch("/api/v1/natter/" + props.value.id, {
+                      method: "DELETE",
+                    }).then(() => (window.location.href = "/"));
+                  }}
+                >
+                  Delete
+                </Button>
+              )}
+              {isOwnedByAuth && (
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    setShowEditForm(!showEditForm);
+                  }}
+                >
+                  Edit
+                </Button>
+              )}
+            </Card.Body>
+          </Card>
+          <Card.Footer>
             <Button
-              variant="danger"
+              style={{ background: "none", border: "none" }}
               onClick={() => {
-                fetch("/api/v1/natter/" + props.value.id, {
-                  method: "DELETE",
-                }).then(() => (window.location.href = "/"));
+                handleClick();
+                fetch("/api/v1/natter/like/" + props.value.id, {
+                  method: "POST",
+                });
               }}
             >
-              Delete
+              <FontAwesomeIcon
+                size="lg"
+                style={{
+                  color: isLiked ? "cyan" : "white",
+                }}
+                icon={faThumbsUp}
+              />{" "}
+              {props.value.likes}
             </Button>
-          )}
-          {isOwnedByAuth && (
-            <Button
-              variant="primary"
-              onClick={() => {
-                setShowEditForm(!showEditForm);
-              }}
-            >
-              Edit
-            </Button>
-          )}
-        </Card.Body>
-      </Card>
-      <Container>
-        <div>Comments:</div>
-        <NewComment id={props.value.id} />
-        <ul>
-          {props.value.comments && props.value.comments.length ? (
-            props.value.comments.map((comment) => (
-              <Comment key={comment.id} value={comment} />
-            ))
-          ) : (
-            <p>No Comments</p>
-          )}
-        </ul>
-      </Container>
-    </Container>
+          </Card.Footer>
+          <Container>
+            <div>
+              <FontAwesomeIcon
+                size="lg"
+                style={{
+                  color: "white",
+                }}
+                icon={faComment}
+              />{" "}
+              Comments:
+            </div>
+            <NewComment id={props.value.id} />
+            <ul>
+              {props.value.comments && props.value.comments.length ? (
+                props.value.comments.map((comment) => (
+                  <Comment key={comment.id} value={comment} />
+                ))
+              ) : (
+                <p>No Comments</p>
+              )}
+            </ul>
+          </Container>
+        </Container>
+      )}
+    </>
   );
 };
 

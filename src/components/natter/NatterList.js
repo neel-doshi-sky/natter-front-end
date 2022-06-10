@@ -1,6 +1,6 @@
 import Natter from "./Natter";
 import { useState, useEffect } from "react";
-import { Jumbotron, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const NatterList = (props) => {
   const [error, setError] = useState(null);
@@ -8,7 +8,6 @@ const NatterList = (props) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    console.log(props);
     fetch(
       !props.getForFollowing
         ? "/api/v1/natter/user/" + props.userId
@@ -42,7 +41,7 @@ const NatterList = (props) => {
       <Container>
         <ul>
           {natters.map((natter) => (
-            <Natter key={natter.id.id} value={natter} />
+            <Natter key={natter.id.id} value={natter} userId={props.userId} />
           ))}
         </ul>
       </Container>

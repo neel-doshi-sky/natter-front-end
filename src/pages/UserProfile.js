@@ -1,10 +1,5 @@
-import Header from "../components/Header";
-import Meta from "../components/Meta";
 import NatterList from "../components/natter/NatterList";
 import { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
-import NewNatter from "../components/natter/NewNatter";
-import { Jumbotron, Container } from "react-bootstrap";
 import UserDetails from "../components/user/UserDetails";
 import { useLocation } from "react-router-dom";
 

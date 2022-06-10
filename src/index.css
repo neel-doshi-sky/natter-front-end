@@ -4,8 +4,37 @@ body,
 .container,
 .nav {
   font-family: "Comfortaa", cursive;
+  background-color: #18191a;
+  color: white;
 }
 
 main {
   min-height: 80vh;
+}
+
+.card-title,
+.card-body {
+  /* background-color: #8899a6; */
+  background-color: #22303c;
+  color: white;
+}
+.card {
+  border: none;
+}
+.card-footer,
+.card-header {
+  background-color: #15202b;
+  border: black;
+  color: #8899a6;
+}
+.form-control {
+  background-color: #8899a6;
+}
+.link-style {
+  text-decoration: none;
+  color: white;
+}
+
+.footer-align {
+  padding-left: 25px;
 }

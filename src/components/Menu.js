@@ -8,15 +8,10 @@ const Menu = (props) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    console.log("new");
-    console.log(props);
-
     fetch("/api/v1/user/")
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result);
-          console.log(props);
           setIsLoaded(true);
           setUser(result);
         },
@@ -35,7 +30,7 @@ const Menu = (props) => {
       <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <Link
           to="/"
-          className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
+          className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-light text-decoration-none"
         >
           NATR
         </Link>
@@ -43,19 +38,40 @@ const Menu = (props) => {
           {props.isLoggedIn && user && user.responseObject && (
             <>
               <li>
-                <Link to="/myProfile" className="nav-link px-2 link-secondary">
+                <Link
+                  className="nav-link px-2 text-light"
+                  style={{ textDecoration: "none" }}
+                  to={{
+                    pathname: `/userProfile/${user.responseObject.id}`,
+                  }}
+                  state={{ id: user.responseObject.id }}
+                >
                   {user.responseObject.firstName +
                     " " +
                     user.responseObject.lastName}
                 </Link>
               </li>
               <li>
-                <Link to="/myProfile" className="nav-link px-2 link-secondary">
+                <Link
+                  className="nav-link px-2 text-light"
+                  style={{ textDecoration: "none" }}
+                  to={{
+                    pathname: `/userProfile/${user.responseObject.id}`,
+                  }}
+                  state={{ id: user.responseObject.id }}
+                >
                   {user.responseObject.followers}
                 </Link>
               </li>
               <li>
-                <Link to="/myProfile" className="nav-link px-2 link-secondary">
+                <Link
+                  className="nav-link px-2 text-light"
+                  style={{ textDecoration: "none" }}
+                  to={{
+                    pathname: `/userProfile/${user.responseObject.id}`,
+                  }}
+                  state={{ id: user.responseObject.id }}
+                >
                   {user.responseObject.following}
                 </Link>
               </li>

@@ -1,7 +1,5 @@
-import { Container } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const UserDetails = (props) => {
@@ -15,7 +13,6 @@ const UserDetails = (props) => {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result);
           setIsLoaded(true);
           setUser(result);
         },
@@ -35,7 +32,6 @@ const UserDetails = (props) => {
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    console.log(user);
     return (
       <>
         {user && user.responseObject && (
@@ -81,9 +77,14 @@ const UserDetails = (props) => {
                     }}
                     variant="danger"
                   >
-                    {" "}
                     Unfollow
                   </Button>
+                )}
+              {!user.responseObject.loggedInUser &&
+                user.responseObject.userIsAFollower && (
+                  <Card.Body className="text-muted">
+                    {user.responseObject.firstName + " follows you!"}
+                  </Card.Body>
                 )}
             </Card.Body>
             <Card.Footer className="text-muted"></Card.Footer>

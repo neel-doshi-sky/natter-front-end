@@ -1,5 +1,3 @@
-import { Container } from "react-bootstrap";
-import Natter from "./Natter";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
@@ -9,10 +7,8 @@ const NewNatter = ({ id }) => {
   const handleChange = (event) => {
     event.preventDefault();
     setValue(event.target.value);
-    console.log("changed");
   };
   const submitForm = (value) => {
-    console.log("form submit " + value);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

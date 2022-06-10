@@ -7,10 +7,8 @@ const NewComment = (props) => {
   const handleChange = (event) => {
     event.preventDefault();
     setValue(event.target.value);
-    console.log("changed");
   };
   const submitForm = (value) => {
-    console.log("form submit " + value);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -18,7 +16,7 @@ const NewComment = (props) => {
     };
     fetch("/api/v1/natter/comment", requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => (window.location.href = window.location.href));
   };
 
   return (
@@ -26,7 +24,6 @@ const NewComment = (props) => {
       onSubmit={(e) => {
         e.preventDefault();
         submitForm(value);
-        window.location.href = window.location.href;
       }}
       onChange={(e) => handleChange(e)}
     >
