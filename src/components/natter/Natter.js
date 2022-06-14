@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const Natter = (props) => {
   const [isLiked, setIsLiked] = useState(
-    props.value.userLikes.includes(props.userId)
+    props.value.userLikes ? props.value.userLikes.includes(props.userId) : false
   );
 
   const handleClick = () => {

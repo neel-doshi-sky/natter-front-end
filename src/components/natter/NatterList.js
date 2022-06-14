@@ -11,7 +11,7 @@ const NatterList = (props) => {
     fetch(
       !props.getForFollowing
         ? "/api/v1/natter/user/" + props.userId
-        : "/api/v1/natter/"
+        : "/api/v1/natter/feed"
     )
       .then((res) => res.json())
       .then(
