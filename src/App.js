@@ -12,6 +12,8 @@ import MyProfile from "./pages/MyProfile";
 import NatterDetails from "./pages/Natter/NatterDetails";
 import { useState, useEffect } from "react";
 import UserProfile from "./pages/UserProfile";
+import UserPreview from "./components/user/UserPreview";
+import UserList from "./components/user/UserList";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,6 +33,16 @@ const App = () => {
           <Route path="/myProfile" element={<MyProfile />} />
           <Route exact path="/natter/:id" element={<NatterDetails />} />
           <Route exact path="/userProfile/:id" element={<UserProfile />} />
+          <Route
+            exact
+            path="/userProfile/following/:id"
+            element={<UserList />}
+          />
+          <Route
+            exact
+            path="/userProfile/followers/:id"
+            element={<UserList />}
+          />
           <Route element={<NotFound />} />
         </Routes>
       </Container>

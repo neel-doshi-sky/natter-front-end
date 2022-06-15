@@ -1,6 +1,7 @@
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const UserDetails = (props) => {
   const [user, setUser] = useState([]);
@@ -44,10 +45,26 @@ const UserDetails = (props) => {
                   user.responseObject.lastName}
               </Card.Title>
               <Card.Text>{user.responseObject.email}</Card.Text>
-              <Button variant="primary">{user.responseObject.followers}</Button>
+              <Link
+                className="link-style"
+                to={{
+                  pathname: `/userProfile/followers/${props.id}`,
+                }}
+                state={{ id: props.id, following: false }}
+              >
+                {user.responseObject.followers}
+              </Link>
               <br></br>
               <br></br>
-              <Button variant="primary">{user.responseObject.following}</Button>
+              <Link
+                className="link-style"
+                to={{
+                  pathname: `/userProfile/following/${props.id}`,
+                }}
+                state={{ id: props.id, following: true }}
+              >
+                {user.responseObject.following}
+              </Link>
               <br></br>
               <br></br>
               {!user.responseObject.loggedInUser &&
