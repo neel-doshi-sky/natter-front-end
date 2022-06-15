@@ -28,7 +28,7 @@ const UserPreview = (props) => {
             }}
             icon={faUser}
           />{" "}
-          {props.user.followers} followers
+          {props.user.followers} follower(s ){" "}
         </Card.Footer>
         <Card.Footer className="footer-align">
           <FontAwesomeIcon
