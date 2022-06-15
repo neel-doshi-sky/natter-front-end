@@ -86,7 +86,7 @@ const Natter = (props) => {
           />{" "}
           {props.value.commentCount}
         </Card.Footer>
-        <Card.Footer>Date: {props.value.dateCreated}</Card.Footer>
+        <Card.Footer>Date: {Date(props.value.dateCreated)}</Card.Footer>
       </Card.Body>
     </Card>
   );

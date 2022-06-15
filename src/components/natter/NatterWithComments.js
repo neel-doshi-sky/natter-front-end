@@ -7,6 +7,7 @@ import { useState } from "react";
 import EditNatter from "./EditNatter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faComment } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const NatterWithComments = (props) => {
   // your link creation
@@ -44,8 +45,21 @@ const NatterWithComments = (props) => {
               {showEditForm && (
                 <EditNatter id={props.value.id} original={props.value.body} />
               )}
-              <Card.Text>By {props.value.authorName}</Card.Text>
-              <Card.Footer>Date: {props.value.dateCreated}</Card.Footer>
+              <Link
+                className="link-style"
+                to={{
+                  pathname: `/userProfile/${props.value.authorId}`,
+                }}
+                state={{ id: props.value.authorId }}
+              >
+                By {props.value.authorName}
+              </Link>
+              <Card.Footer>
+                Date:{" "}
+                {props.value.dateCreated
+                  ? Date(props.value.dateCreated)
+                  : props.value.dateCreated}
+              </Card.Footer>
             </Card.Body>
             <Card.Body>
               {isOwnedByAuth && (
