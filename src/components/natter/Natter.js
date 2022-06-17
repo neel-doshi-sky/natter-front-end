@@ -70,7 +70,7 @@ const Natter = (props) => {
               }}
             >
               <FontAwesomeIcon
-                size="lg"
+                size="xl"
                 style={{
                   color: isLiked ? "cyan" : "white",
                 }}
@@ -87,7 +87,7 @@ const Natter = (props) => {
               }}
             >
               <FontAwesomeIcon
-                size="lg"
+                size="xl"
                 style={{
                   color: "white",
                 }}

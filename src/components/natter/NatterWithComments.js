@@ -94,7 +94,7 @@ const NatterWithComments = (props) => {
                 }}
               >
                 <FontAwesomeIcon
-                  size="lg"
+                  size="xl"
                   style={{
                     color: isLiked ? "cyan" : "white",
                   }}
@@ -105,16 +105,8 @@ const NatterWithComments = (props) => {
             </Card.Body>
           </Card>
           <Container>
-            <div>
-              <FontAwesomeIcon
-                size="lg"
-                style={{
-                  color: "white",
-                }}
-                icon={faComment}
-              />{" "}
-              Comments:
-            </div>
+            <h3>Comments</h3>
+            <br></br>
             <NewComment id={props.value.id} />
             <ul>
               {props.value.comments && props.value.comments.length ? (
@@ -122,7 +114,12 @@ const NatterWithComments = (props) => {
                   <Comment key={comment.id} value={comment} />
                 ))
               ) : (
-                <p>No Comments</p>
+                <Container>
+                  <div style={{ textAlign: "center" }}>
+                    <br></br>
+                    <h4>No Comments</h4>
+                  </div>
+                </Container>
               )}
             </ul>
           </Container>

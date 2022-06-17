@@ -2,6 +2,7 @@ import { Card } from "react-bootstrap";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
+import { printDate } from "../../util/DateUtil";
 
 const Comment = (props) => {
   // your link creation
@@ -28,7 +29,9 @@ const Comment = (props) => {
   return (
     <Card>
       <Card.Body>
-        {!showEditForm && <Card.Body>{props.value.body}</Card.Body>}
+        {!showEditForm && (
+          <Card.Title className="comment">{props.value.body}</Card.Title>
+        )}
         {showEditForm && isOwnedByAuth && (
           <Form
             onSubmit={(e) => {
@@ -48,8 +51,12 @@ const Comment = (props) => {
             </Button>
           </Form>
         )}
-        <Card.Footer>{props.value.authorName}</Card.Footer>
-        <Card.Footer>Date: {props.value.dateCreated}</Card.Footer>
+      </Card.Body>
+      <Card.Body>
+        By {props.value.authorName}
+        <br></br>
+        <br></br>
+        <Card.Footer>{printDate(props.value.dateCreated)}</Card.Footer>
       </Card.Body>
       <Card.Body>
         {isOwnedByAuth && (

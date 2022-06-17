@@ -28,7 +28,7 @@ main {
 }
 
 .listCard {
-  max-width: 75%;
+  max-width: 85%;
 }
 
 .card-footer,
@@ -59,4 +59,8 @@ main {
 
 .btn {
   margin-right: 25px;
+}
+
+.comment {
+  font-size: 1.4rem;
 }
