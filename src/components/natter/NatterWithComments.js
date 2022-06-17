@@ -47,6 +47,7 @@ const NatterWithComments = (props) => {
               {showEditForm && (
                 <EditNatter id={props.value.id} original={props.value.body} />
               )}
+              <br></br>
               <Link
                 className="link-style"
                 to={{
@@ -55,7 +56,9 @@ const NatterWithComments = (props) => {
                 state={{ id: props.value.authorId }}
               >
                 By {props.value.authorName}
+                <br></br>
               </Link>
+              <br></br>
               <Card.Footer>{date}</Card.Footer>
             </Card.Body>
             <Card.Body>
