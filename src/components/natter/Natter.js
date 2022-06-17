@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faComment } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { printDate } from "../../util/DateUtil";
 
 const Natter = (props) => {
   const [isLiked, setIsLiked] = useState(
@@ -29,7 +30,7 @@ const Natter = (props) => {
     // setIsActive(true);
   };
   return (
-    <Card>
+    <Card className="listCard">
       <Card.Body>
         <Link
           style={{ textDecoration: "none" }}
@@ -40,6 +41,7 @@ const Natter = (props) => {
         >
           <Card.Title>{props.value.body}</Card.Title>
         </Link>
+        <br></br>
         <Card.Text>
           <Link
             className="link-style"
@@ -49,7 +51,9 @@ const Natter = (props) => {
             state={{ id: props.value.id.authorId }}
           >
             By {props.value.authorName}
+            <br></br>
           </Link>
+          <br></br>
           <Card.Footer>
             <Button
               style={{
@@ -74,19 +78,27 @@ const Natter = (props) => {
               />{" "}
               {props.value.likes}
             </Button>
+            <Button
+              style={{
+                background: "none",
+                border: "none",
+                padding: "0,0,0,0",
+                margin: "0",
+              }}
+            >
+              <FontAwesomeIcon
+                size="lg"
+                style={{
+                  color: "white",
+                }}
+                icon={faComment}
+              />{" "}
+              {props.value.commentCount}
+            </Button>
           </Card.Footer>
         </Card.Text>
-        <Card.Footer className="footer-align">
-          <FontAwesomeIcon
-            size="lg"
-            style={{
-              color: "white",
-            }}
-            icon={faComment}
-          />{" "}
-          {props.value.commentCount}
-        </Card.Footer>
-        <Card.Footer>Date: {Date(props.value.dateCreated)}</Card.Footer>
+        <Card.Footer className="footer-align"></Card.Footer>
+        <Card.Footer>{printDate(props.value.dateCreated)}</Card.Footer>
       </Card.Body>
     </Card>
   );

@@ -53,10 +53,6 @@ const Home = (props) => {
 
     return (
       <>
-        <div>
-          <Meta title={pageTitle} />
-          <Header head={pageTitle} description={pageDescription} />
-        </div>
         <NewNatter />
         {userId && (
           <NatterList

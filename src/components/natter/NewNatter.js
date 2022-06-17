@@ -42,8 +42,6 @@ const NewNatter = ({ id }) => {
 
   if (error) {
     return <NotFound errorCode={error.status}></NotFound>;
-  } else if (result) {
-    return <NotFound errorCode={error.status}></NotFound>;
   } else {
     return (
       <Container>

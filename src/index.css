@@ -12,6 +12,10 @@ main {
   min-height: 80vh;
 }
 
+.card-title {
+  font-size: 1.6rem;
+}
+
 .card-title,
 .card-body {
   /* background-color: #8899a6; */
@@ -20,7 +24,13 @@ main {
 }
 .card {
   border: none;
+  margin: 0 auto 30px;
 }
+
+.listCard {
+  max-width: 75%;
+}
+
 .card-footer,
 .card-header {
   background-color: #15202b;
@@ -45,4 +55,8 @@ main {
 
 .btn-close {
   background-color: cyan;
+}
+
+.btn {
+  margin-right: 25px;
 }

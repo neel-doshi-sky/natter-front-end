@@ -8,6 +8,7 @@ import EditNatter from "./EditNatter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faComment } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { printDate } from "../../util/DateUtil";
 
 const NatterWithComments = (props) => {
   // your link creation
@@ -34,12 +35,13 @@ const NatterWithComments = (props) => {
       props.value.userLikes.push(props.userId);
     }
   };
+  var date = printDate(props.value.dateCreated);
 
   return (
     <>
       {props.userId && props.value && (
         <Container>
-          <Card>
+          <Card className="detailedCard">
             <Card.Body>
               {!showEditForm && <Card.Title>{props.value.body}</Card.Title>}
               {showEditForm && (
@@ -54,12 +56,7 @@ const NatterWithComments = (props) => {
               >
                 By {props.value.authorName}
               </Link>
-              <Card.Footer>
-                Date:{" "}
-                {props.value.dateCreated
-                  ? Date(props.value.dateCreated)
-                  : props.value.dateCreated}
-              </Card.Footer>
+              <Card.Footer>{date}</Card.Footer>
             </Card.Body>
             <Card.Body>
               {isOwnedByAuth && (
@@ -84,28 +81,26 @@ const NatterWithComments = (props) => {
                   Edit
                 </Button>
               )}
+              <Button
+                style={{ background: "none", border: "none" }}
+                onClick={() => {
+                  handleClick();
+                  fetch("/api/v1/natter/like/" + props.value.id, {
+                    method: "POST",
+                  });
+                }}
+              >
+                <FontAwesomeIcon
+                  size="lg"
+                  style={{
+                    color: isLiked ? "cyan" : "white",
+                  }}
+                  icon={faThumbsUp}
+                />{" "}
+                {props.value.likes}
+              </Button>
             </Card.Body>
           </Card>
-          <Card.Footer>
-            <Button
-              style={{ background: "none", border: "none" }}
-              onClick={() => {
-                handleClick();
-                fetch("/api/v1/natter/like/" + props.value.id, {
-                  method: "POST",
-                });
-              }}
-            >
-              <FontAwesomeIcon
-                size="lg"
-                style={{
-                  color: isLiked ? "cyan" : "white",
-                }}
-                icon={faThumbsUp}
-              />{" "}
-              {props.value.likes}
-            </Button>
-          </Card.Footer>
           <Container>
             <div>
               <FontAwesomeIcon
