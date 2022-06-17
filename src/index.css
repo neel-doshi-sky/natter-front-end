@@ -38,3 +38,11 @@ main {
 .footer-align {
   padding-left: 25px;
 }
+
+.modal-content {
+  background-color: #15202b;
+}
+
+.btn-close {
+  background-color: cyan;
+}

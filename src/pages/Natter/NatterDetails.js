@@ -1,10 +1,7 @@
-import Header from "../../components/Header";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Button } from "bootstrap";
 import NatterWithComments from "../../components/natter/NatterWithComments";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import Login from "../../components/Login";
+import NotFound from "../NotFound";
 
 const NatterDetails = () => {
   // page content
@@ -35,11 +32,7 @@ const NatterDetails = () => {
   }, []);
 
   if (error) {
-    return (
-      <>
-        <Login></Login>
-      </>
-    );
+    return <NotFound errorCode={error.status}></NotFound>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {

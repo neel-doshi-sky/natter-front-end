@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
-import { Nav, Container } from "react-bootstrap";
+import { Nav, Container, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 const Menu = (props) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState(null);
+  const [isLogout, setIsLogout] = useState(false);
+
+  const logout = () => {
+    if (isLogout) {
+      window.location.href = "http://localhost:8080/logout";
+    }
+  };
 
   useEffect(() => {
     fetch("/api/v1/user/")
@@ -54,11 +62,14 @@ const Menu = (props) => {
               <li>
                 <Link
                   className="nav-link px-2 text-light"
-                  style={{ textDecoration: "none" }}
                   to={{
-                    pathname: `/userProfile/${user.responseObject.id}`,
+                    pathname: `/userProfile/followers/${user.responseObject.id}`,
                   }}
-                  state={{ id: user.responseObject.id }}
+                  state={{
+                    id: user.responseObject.id,
+                    following: false,
+                    userName: user.responseObject.firstName,
+                  }}
                 >
                   {user.responseObject.followers}
                 </Link>
@@ -66,14 +77,28 @@ const Menu = (props) => {
               <li>
                 <Link
                   className="nav-link px-2 text-light"
-                  style={{ textDecoration: "none" }}
                   to={{
-                    pathname: `/userProfile/${user.responseObject.id}`,
+                    pathname: `/userProfile/following/${user.responseObject.id}`,
                   }}
-                  state={{ id: user.responseObject.id }}
+                  state={{
+                    id: user.responseObject.id,
+                    following: true,
+                    userName: user.responseObject.firstName,
+                  }}
                 >
                   {user.responseObject.following}
                 </Link>
+              </li>
+              <li>
+                <Button
+                  onClick={(e) => {
+                    setIsLogout(true);
+                    logout();
+                  }}
+                  variant="danger"
+                >
+                  Logout
+                </Button>
               </li>
             </>
           )}

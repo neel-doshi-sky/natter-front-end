@@ -1,6 +1,7 @@
 import Natter from "./Natter";
 import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
+import NotFound from "../../pages/NotFound";
 
 const NatterList = (props) => {
   const [error, setError] = useState(null);
@@ -30,6 +31,7 @@ const NatterList = (props) => {
   }, []);
   if (error) {
     console.log(error);
+    return <NotFound errorCode={error.status}></NotFound>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {

@@ -2,6 +2,7 @@ import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import NotFound from "../../pages/NotFound";
 
 const UserDetails = (props) => {
   const [user, setUser] = useState([]);
@@ -30,6 +31,7 @@ const UserDetails = (props) => {
   // your link creation
   if (error) {
     console.log(error);
+    return <NotFound errorCode={error.status}></NotFound>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
@@ -45,26 +47,38 @@ const UserDetails = (props) => {
                   user.responseObject.lastName}
               </Card.Title>
               <Card.Text>{user.responseObject.email}</Card.Text>
-              <Link
-                className="link-style"
-                to={{
-                  pathname: `/userProfile/followers/${props.id}`,
-                }}
-                state={{ id: props.id, following: false }}
-              >
-                {user.responseObject.followers}
-              </Link>
+              <Button>
+                <Link
+                  className="link-style"
+                  to={{
+                    pathname: `/userProfile/followers/${props.id}`,
+                  }}
+                  state={{
+                    id: props.id,
+                    following: false,
+                    userName: user.responseObject.firstName,
+                  }}
+                >
+                  {user.responseObject.followers}
+                </Link>
+              </Button>
               <br></br>
               <br></br>
-              <Link
-                className="link-style"
-                to={{
-                  pathname: `/userProfile/following/${props.id}`,
-                }}
-                state={{ id: props.id, following: true }}
-              >
-                {user.responseObject.following}
-              </Link>
+              <Button>
+                <Link
+                  className="link-style"
+                  to={{
+                    pathname: `/userProfile/following/${props.id}`,
+                  }}
+                  state={{
+                    id: props.id,
+                    following: true,
+                    userName: user.responseObject.firstName,
+                  }}
+                >
+                  {user.responseObject.following}
+                </Link>
+              </Button>
               <br></br>
               <br></br>
               {!user.responseObject.loggedInUser &&
