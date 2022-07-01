@@ -8,6 +8,7 @@ const UserList = (props) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [reload, setReload] = useState(false);
   const location = useLocation();
   const id = location.state.id;
   const following = location.state.following;
@@ -26,13 +27,12 @@ const UserList = (props) => {
         (result) => {
           setIsLoaded(true);
           setItems(result);
+          setReload(false);
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           setIsLoaded(true);
           setError(error);
+          setReload(false);
         }
       );
   }, []);
@@ -51,7 +51,12 @@ const UserList = (props) => {
         <h1>{title}</h1>
         <ul>
           {users.map((user) => (
-            <UserPreview key={user.id} user={user} userId={props.userId} />
+            <UserPreview
+              key={user.id}
+              user={user}
+              userId={props.userId}
+              following={following}
+            />
           ))}
         </ul>
       </Container>

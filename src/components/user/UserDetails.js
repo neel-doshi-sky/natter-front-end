@@ -91,7 +91,7 @@ const UserDetails = (props) => {
                         () => (window.location.href = window.location.href)
                       );
                     }}
-                    variant="success"
+                    variant="outline-success"
                   >
                     + Follow
                   </Button>
@@ -106,7 +106,7 @@ const UserDetails = (props) => {
                         () => (window.location.href = window.location.href)
                       );
                     }}
-                    variant="danger"
+                    variant="outline-danger"
                   >
                     Unfollow
                   </Button>
